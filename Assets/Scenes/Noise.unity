@@ -2153,7 +2153,7 @@ MonoBehaviour:
   rez: 128
   inTex: {fileID: 8600000, guid: cca7077f62345c54ab02e1555e680954, type: 2}
   outMat: {fileID: 2100000, guid: 4b1e5a54732f22f4d92d694952e4558a, type: 2}
-  iMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  iMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   audioData: {fileID: 860698049}
   audioMatValues: {fileID: 2100000, guid: a3b54ab697dd457419ca92b25a1f66f6, type: 2}
   useSaturation: 1
