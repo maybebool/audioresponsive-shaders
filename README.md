@@ -1,8 +1,7 @@
 ## Audioresponsive Compute Shaders
-Demo: https://youtube.com/shorts/nPgiHUXxqQQ?feature=share
-In this project, I'm using compute shaders to simulate various algorithms like BIODS and CCA on an Android build made in Unity. 
 
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_001_0000.jpg" alt="Shader Play" height="500">
+In this project, I'm using compute shaders to simulate various algorithms like BIODS and CCA on an Android build made in Unity. 
+Demo: https://youtube.com/shorts/nPgiHUXxqQQ?feature=share
 
 ### Audioresponive Compute Shader Algorithms
 
@@ -16,7 +15,7 @@ In this project, I'm using compute shaders to simulate various algorithms like B
 
 --------------------------------------------------------------------------------------
 
-For the following algorithms I want to mention the creator Arsiliath and his compute shader course https://store.notochord.life/products/compute-shaders-with-unity that I took for education. 
+For the following algorithms, I want to mention the creator Arsiliath and his compute shader course https://store.notochord.life/products/compute-shaders-with-unity that I took for education. 
 
 #### CCA (cyclic cellular automaton)
 
