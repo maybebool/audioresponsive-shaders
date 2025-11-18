@@ -16,7 +16,7 @@ The system transforms real-time audio input into visual data using FFT (Fast Fou
 
 ## Mathematical Deep Dive
 
-### 1. Flocking Simulation (Boids)\
+### 1. Flocking Simulation (Boids)
 <img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_002_0000.jpg" alt="Boids" height="500">\
 The flocking system implements Craig Reynolds' steering behaviors. To maintain high performance with large populations, position and velocity calculations are dispatched to the GPU via `BoidsCarrier.cs` and `FlockingBehaviour.cs`.
 
@@ -42,18 +42,18 @@ The `AudioData.cs` module utilizes the Fast Fourier Transform (FFT) to convert t
 ### 3. Discrete Math & Chaos Theory
 The project implements multiple forms of discrete grid simulations.
 
-**Cyclic Cellular Automata (`CCA.cs`)**\
+**Cyclic Cellular Automata (`CCA.cs`)**
 <img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_007_0000.jpg" alt="CCA" height="500">\
 A cyclic system where a cell with state $S$ is consumed by a neighbor with state $S+1$ modulo $N_{states}$.
 * **Algorithm:** Supports both Moore and Von Neumann neighborhoods with adjustable range and threshold parameters.
 
-**Edge of Chaos (`EOCCCA.cs`)**\
+**Edge of Chaos (`EOCCCA.cs`)**
 <img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_009_0000.jpg" alt="EOC" height="500">\
 Explores Langton’s Lambda ($\lambda$) parameter. The system generates a transition table based on a probability $\lambda$ to find the phase transition where complex structures emerge.
 * **Compute Indexing:** The 3D transition rule table is flattened for the GPU:
     $$Index = a \times N^2 + b \times N + c$$
 
-**Physarum / Agent Trails (`AgentCCA.cs`)**\
+**Physarum / Agent Trails (`AgentCCA.cs`)**
 <img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_006_0000.jpg" alt="Agents" height="500">\
 Based on Jeff Jones' algorithm for slime mold approximation.
 1.  **Sensory Stage:** Agents probe the grid at angles $\theta$, $-\theta$, and $0$.
@@ -87,6 +87,7 @@ The `NoiseAudio.cs` and `BoidsCarrier.cs` scripts bridge the audio data and the 
 ### Dependencies
 * Unity 2021.3+ (URP/HDRP recommended for Compute Shaders)
 * C# 8.0+
+
 
 
 
