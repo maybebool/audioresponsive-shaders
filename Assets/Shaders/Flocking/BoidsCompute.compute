@@ -11,6 +11,13 @@ struct Boid
     float steering;
 };
 
+/**
+ * Calculates the angle in radians between two 3D vectors.
+ *
+ * @param v1 The first 3D vector.
+ * @param v2 The second 3D vector.
+ * @return The angle in radians between the two vectors. The result lies in the range [0, π].
+ */
 float CalcAngle(float3 v1, float3 v2)
 {
     // Calculate the dot product of v1 and v2
@@ -132,7 +139,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     {
         temp_steer = boid_one.raySteer;
     }
-
+    
     //Steering correction
     float steeringCorrection = exp(-boid_one.steering * deltaTime);
 
