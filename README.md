@@ -1,36 +1,4 @@
-## Audioresponsive Compute Shaders
-
-In this project, I'm using compute shaders to simulate various algorithms like BIODS and CCA on an Android build made in Unity. 
-
-Demo: https://youtube.com/shorts/nPgiHUXxqQQ?feature=share
-
-### Audioresponive Compute Shader Algorithms
-
-#### BOIDS
-
-
-
-#### Voronoi 
-
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_005_0000.jpg" alt="Voronoi" height="500">
-
---------------------------------------------------------------------------------------
-
-For the following algorithms, I want to mention the creator Arsiliath and his compute shader course https://store.notochord.life/products/compute-shaders-with-unity that I took for education. 
-
-#### CCA (cyclic cellular automaton)
-
-
-
-EOC (Edge of Chaos)
-
-
-
-Agents
-
-
-
-# Computational Visuals & Audio-Reactive Systems
+# Computational Visuals & Audio-Reactive Systems on Mobile Devices
 
 ## Overview
 This repository demonstrates a high-performance, audio-reactive visual simulation system built in Unity. The project focuses on implementing complex mathematical algorithms—specifically Flocking behaviors, Cellular Automata, and Physarum simulations—accelerated via GPU Compute Shaders to handle high-density particle counts.
@@ -119,6 +87,7 @@ The `NoiseAudio.cs` and `BoidsCarrier.cs` scripts bridge the audio data and the 
 ### Dependencies
 * Unity 2021.3+ (URP/HDRP recommended for Compute Shaders)
 * C# 8.0+
+
 
 
 
