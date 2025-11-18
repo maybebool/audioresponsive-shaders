@@ -61,7 +61,7 @@ $$\vec{V}_{final} = \vec{V}_{separation} + \vec{V}_{alignment} + \vec{V}_{cohesi
 * **Alignment:** Steers the agent towards the average heading ($\vec{forward}$) of neighbors.
 * **Cohesion:** Steers the agent towards the average position (center of mass) of neighbors.
 * **Collision Avoidance:** Utilizes raycasting (`RaycastType`) to detect terrain. Upon detection, the steering vector is adjusted using the surface normal $\hat{n}$ of the hit point:
-    $$ \vec{V}_{\text{steer}} = \frac{ \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\text{agent}} }{ \| \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\text{agent}} \| } $$
+    $$ \vec{V}_{\text{steer}} = \text{normalize} \left( \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\text{agent}} \right) $$
 
 ### 2. Audio Signal Processing (FFT)
 The `AudioData.cs` module utilizes the Fast Fourier Transform (FFT) to convert time-domain audio signals into frequency-domain data.
@@ -118,4 +118,5 @@ The `NoiseAudio.cs` and `BoidsCarrier.cs` scripts bridge the audio data and the 
 ### Dependencies
 * Unity 2021.3+ (URP/HDRP recommended for Compute Shaders)
 * C# 8.0+
+
 
