@@ -2,17 +2,15 @@ using System;
 using UnityEngine;
 
 namespace Flocking {
-    public class BoidsCarrier : FlockingBehaviour {
-        
-        
-        protected virtual int BufferSizeCalc => BoidConductValues.Size;
+    public sealed class BoidsCarrier : FlockingBehaviour {
+        private int BufferSizeCalc => BoidConductValues.Size;
         private BoidConductValues[] _boidValues;
 
         protected override void InitializeBoidData() {
             _boidValues = new BoidConductValues[boidsArray.Length];
             for (int i = 0; i < boidsArray.Length; i++) {
-                _boidValues[i].position = boidsArray[i].transform.position;
-                _boidValues[i].forward = boidsArray[i].transform.right;
+                _boidValues[i].Position = boidsArray[i].transform.position;
+                _boidValues[i].Forward = boidsArray[i].transform.right;
             }
         }
         
@@ -87,8 +85,8 @@ namespace Flocking {
 
                 RaycastTypeCheck(tempPos, tempFwd, i);
                 
-                boidTransform.position = _boidValues[i].position;
-                boidTransform.rotation = Quaternion.LookRotation(_boidValues[i].forward);
+                boidTransform.position = _boidValues[i].Position;
+                boidTransform.rotation = Quaternion.LookRotation(_boidValues[i].Forward);
                 
                 if (!useScale) continue;
                 var scale = Mathf.Lerp(minMaxValueScale.x, minMaxValueScale.y,
@@ -121,12 +119,12 @@ namespace Flocking {
             if (didHit) {
                 var avoidanceFactor = 1 - (Vector3.Distance(tempPos, raycastHit.point) / raycastDistance);
                 var raySteering = (raycastHit.point + raycastHit.normal - tempPos).normalized;
-                _boidValues[i].raySteer = raySteering;
-                _boidValues[i].steering = collisionAdjustment * avoidanceFactor;
+                _boidValues[i].RaySteer = raySteering;
+                _boidValues[i].Steering = collisionAdjustment * avoidanceFactor;
             }
             else {
-                _boidValues[i].raySteer = Vector3.zero;
-                _boidValues[i].steering = steeringSpeed;
+                _boidValues[i].RaySteer = Vector3.zero;
+                _boidValues[i].Steering = steeringSpeed;
             }
         }
     }

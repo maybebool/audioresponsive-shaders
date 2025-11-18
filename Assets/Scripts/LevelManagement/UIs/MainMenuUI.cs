@@ -32,23 +32,23 @@ namespace LevelManagement.UIs {
         
         
         private void OnBoidsLevelButtonClicked() {
-            ScenesManager.Instance.LoadScene(Scene.Flocking);
+            ScenesManager.Instance.LoadScene(SceneEnum.Flocking);
         }
         
         private void OnNoiseLevelButtonClicked() {
-            ScenesManager.Instance.LoadScene(Scene.Noise);
+            ScenesManager.Instance.LoadScene(SceneEnum.Noise);
         }
 
         private void OnCCALevelButtonClicked() {
-            ScenesManager.Instance.LoadScene(Scene.CCA);
+            ScenesManager.Instance.LoadScene(SceneEnum.CCA);
         }
 
         private void OnEOCLevelButtonClicked() {
-            ScenesManager.Instance.LoadScene(Scene.EOC);
+            ScenesManager.Instance.LoadScene(SceneEnum.EOC);
         }
 
         private void OnAgentsButtonClicked() {
-            ScenesManager.Instance.LoadScene(Scene.AgentCCA);
+            ScenesManager.Instance.LoadScene(SceneEnum.AgentCCA);
         }
         
         private void OnApplicationQuit() {

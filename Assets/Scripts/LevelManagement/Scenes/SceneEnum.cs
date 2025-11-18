@@ -1,6 +1,6 @@
 ﻿namespace LevelManagement {
     
-    public enum Scene {
+    public enum SceneEnum {
         MainMenu,
         Flocking,
         EOC,

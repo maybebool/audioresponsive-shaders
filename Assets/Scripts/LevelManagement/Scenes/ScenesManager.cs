@@ -3,16 +3,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LevelManagement.Scenes {
-    public class ScenesManager : Singleton<ScenesManager>
-    {
-        public void LoadScene(Scene scene) {
-            SceneManager.LoadScene(scene.ToString());
+    public class ScenesManager : Singleton<ScenesManager> {
+        public void LoadScene(SceneEnum sceneEnum) {
+            SceneManager.LoadScene(sceneEnum.ToString());
         }
 
         public void LoadMainMenu() {
-            SceneManager.LoadScene(Scene.MainMenu.ToString());
+            SceneManager.LoadScene(SceneEnum.MainMenu.ToString());
         }
-        
+
         public void QuitGame() {
             Application.Quit();
         }

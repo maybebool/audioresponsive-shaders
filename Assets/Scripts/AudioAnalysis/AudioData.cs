@@ -8,6 +8,21 @@ namespace AudioAnalysis {
         public float[] FrequencyBandHighest { get; } = new float[8];
     }
 
+    /// <summary>
+    /// Represents audio data processed for use in real-time audio analysis and effects.
+    /// This component is responsible for managing and providing audio band data, amplitudes,
+    /// and buffers which can be used to create audio-reactive behaviors in various systems.
+    /// </summary>
+    /// <remarks>
+    /// This class is designed to work in conjunction with Unity's AudioSource and relies
+    /// on frequency band analysis for its functionality. It supports audio visualization
+    /// and other audio-based computations.
+    /// It can be used as a dependency in other classes such as NoiseAudio and FlockingBehaviour
+    /// to implement audio-reactive systems such as noise-driven shaders or flock behaviors.
+    /// </remarks>
+    /// <seealso cref="UnityEngine.AudioSource"/>
+    /// <seealso cref="Noise.NoiseAudio"/>
+    /// <seealso cref="Flocking.FlockingBehaviour"/>
     [RequireComponent(typeof(AudioSource))]
     public class AudioData : MonoBehaviour {
         private SpectrumBandData _spectrumBandData = new();

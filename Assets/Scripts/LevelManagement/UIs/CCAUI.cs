@@ -44,7 +44,7 @@ namespace LevelManagement.UIs {
         }
 
         private void OnClickDefaultParamsButton() {
-            ScenesManager.Instance.LoadScene(Scene.CCA);
+            ScenesManager.Instance.LoadScene(SceneEnum.CCA);
         }
     }
 }

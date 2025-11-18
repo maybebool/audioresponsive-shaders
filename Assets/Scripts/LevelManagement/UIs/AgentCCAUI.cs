@@ -15,14 +15,12 @@ namespace LevelManagement.UIs {
         private void OnEnable() {
             backToMenuButton.onClick.AddListener(OnClickBackToMenu);
             trailDecay.onValueChanged.AddListener(OnClickTrailDecaySlider);
-            
         }
 
         private void OnDisable() {
             backToMenuButton.onClick.RemoveListener(OnClickBackToMenu);
             trailDecay.onValueChanged.RemoveListener(OnClickTrailDecaySlider);
         }
-        
         
         private void OnClickBackToMenu() {
             ScenesManager.Instance.LoadMainMenu();
@@ -31,6 +29,5 @@ namespace LevelManagement.UIs {
         private void OnClickTrailDecaySlider(float value) {
             agentCca.trailDecayFactor = value;
         }
-    
     }
 }
