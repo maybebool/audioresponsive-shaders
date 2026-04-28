@@ -1,7 +1,16 @@
 # Computational Visuals & Audio-Reactive Systems
 
 <p align="center">
-  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Audio-Reactive Flocking Simulation" width="100%">
+  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Boids" height="220">
+  &nbsp;
+  <img src="Recordings/Image%20Sequence_007_0000.jpg" alt="CCA" height="220">
+  &nbsp;
+  <img src="Recordings/Image%20Sequence_009_0000.jpg" alt="Edge of Chaos" height="220">
+  &nbsp;
+  <img src="Recordings/Image%20Sequence_006_0000.jpg" alt="Physarum" height="220">
+</p>
+<p align="center">
+  <em>Boids · Cyclic Cellular Automata · Edge of Chaos · Physarum</em>
 </p>
 
 [![Unity](https://img.shields.io/badge/Unity-2021.3+-000000?style=flat-square&logo=unity&logoColor=white)](https://unity.com/)
@@ -19,12 +28,6 @@ Build a high-performance system that transforms real-time audio input into compl
 ## Simulations
 
 ### 1. Flocking (Boids)
-
-<p align="center">
-  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Boids Simulation" width="80%">
-  <br>
-  <em>Reynolds' Boids — GPU-dispatched steering behaviours with collision avoidance.</em>
-</p>
 
 Implementation of Craig Reynolds' steering behaviours. Position and velocity calculations are dispatched to the GPU via `BoidsCarrier.cs` and `FlockingBehaviour.cs`.
 
@@ -45,33 +48,15 @@ $$\vec{V}_{\text{steer}} = \left( \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\tex
 
 ### 2. Cyclic Cellular Automata (CCA)
 
-<p align="center">
-  <img src="Recordings/Image%20Sequence_007_0000.jpg" alt="Cyclic Cellular Automata" width="80%">
-  <br>
-  <em>Cyclic Cellular Automata — Moore neighbourhood with adjustable state count.</em>
-</p>
-
 A discrete grid simulation where a cell with state $S$ is consumed by a neighbour with state $S+1 \mod N_{states}$. Supports both Moore and Von Neumann neighbourhoods with configurable range and threshold parameters.
 
 ### 3. Edge of Chaos (EOCCCA)
-
-<p align="center">
-  <img src="Recordings/Image%20Sequence_009_0000.jpg" alt="Edge of Chaos" width="80%">
-  <br>
-  <em>Edge of Chaos — Langton's Lambda parameter exploring phase transitions.</em>
-</p>
 
 Explores Langton's Lambda ($\lambda$) parameter to find phase transitions where complex structures emerge. The transition rule table is generated probabilistically and flattened for GPU dispatch:
 
 $$Index = a \times N^2 + b \times N + c$$
 
 ### 4. Physarum Agent Trails
-
-<p align="center">
-  <img src="Recordings/Image%20Sequence_006_0000.jpg" alt="Physarum Simulation" width="80%">
-  <br>
-  <em>Physarum slime mold — agent-based trail simulation with diffusion and decay.</em>
-</p>
 
 Based on Jeff Jones' algorithm for slime mold approximation. The simulation runs in three stages:
 
