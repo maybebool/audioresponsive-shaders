@@ -1,95 +1,143 @@
-# Computational Visuals & Audio-Reactive Systems on Mobile Devices
+# Computational Visuals & Audio-Reactive Systems
 
-## Overview
-This repository demonstrates a high-performance, audio-reactive visual simulation system built in Unity. The project focuses on implementing complex mathematical algorithms—specifically Flocking behaviors, Cellular Automata, and Physarum simulations—accelerated via GPU Compute Shaders to handle high-density particle counts.
+<p align="center">
+  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Audio-Reactive Flocking Simulation" width="100%">
+</p>
 
-The system transforms real-time audio input into visual data using FFT (Fast Fourier Transform) analysis, driving organic, emergent behaviors in real-time.
+[![Unity](https://img.shields.io/badge/Unity-2021.3+-000000?style=flat-square&logo=unity&logoColor=white)](https://unity.com/)
+[![C#](https://img.shields.io/badge/C%23-8.0+-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![Compute Shaders](https://img.shields.io/badge/Compute_Shaders-HLSL-5586A4?style=flat-square)](https://docs.unity3d.com/Manual/class-ComputeShader.html)
+[![FFT](https://img.shields.io/badge/FFT-Audio_Analysis-FF6F61?style=flat-square)](https://en.wikipedia.org/wiki/Fast_Fourier_transform)
+[![GPU](https://img.shields.io/badge/GPU-Instanced_Rendering-77B829?style=flat-square)](https://docs.unity3d.com/Manual/GPUInstancing.html)
 
-## Key Features
-* **GPU-Accelerated Flocking:** Reynolds' Boids algorithm implementation using Compute Shaders for massive swarm simulation.
-* **Cyclic Cellular Automata (CCA):** 2D grid-based state simulations supporting Moore neighborhoods.
-* **Physarum Trails:** Agent-based slime mold simulations using sensory/motor stages and diffuse/decay kernels.
-* **Audio Analysis Engine:** Real-time frequency band separation with logarithmic smoothing.
-* **Indirect Instancing:** Rendering optimization using `Graphics.DrawMeshInstancedIndirect`.
+GPU-accelerated particle simulations — flocking, cellular automata, and physarum — driven by real-time FFT audio analysis to produce emergent, organic visual behaviours on mobile hardware.
 
----
+## Objective
 
-## Mathematical Deep Dive
+Build a high-performance system that transforms real-time audio input into complex visual simulations. Three distinct algorithms (Reynolds' Boids, Cyclic Cellular Automata, Physarum slime mold) are implemented entirely on the GPU via Compute Shaders, with FFT frequency-band data driving simulation parameters. The result is a set of audio-reactive visual systems capable of rendering tens of thousands of agents at interactive frame rates.
 
-### 1. Flocking Simulation (Boids)
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_002_0000.jpg" alt="Boids" height="500">\
-The flocking system implements Craig Reynolds' steering behaviors. To maintain high performance with large populations, position and velocity calculations are dispatched to the GPU via `BoidsCarrier.cs` and `FlockingBehaviour.cs`.
+## Simulations
 
-**The Core Forces**
-The movement vector $V$ for each agent is calculated by summing weighted steering forces:
+### 1. Flocking (Boids)
+
+<p align="center">
+  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Boids Simulation" width="80%">
+  <br>
+  <em>Reynolds' Boids — GPU-dispatched steering behaviours with collision avoidance.</em>
+</p>
+
+Implementation of Craig Reynolds' steering behaviours. Position and velocity calculations are dispatched to the GPU via `BoidsCarrier.cs` and `FlockingBehaviour.cs`.
+
+The movement vector for each agent is the weighted sum of four steering forces:
 
 $$\vec{V}_{final} = \vec{V}_{separation} + \vec{V}_{alignment} + \vec{V}_{cohesion} + \vec{V}_{avoidance}$$
 
-* **Separation:** Repulsive force inversely proportional to the distance squared between neighbors within a local radius $r$.
-* **Alignment:** Steers the agent towards the average heading ($\vec{forward}$) of neighbors.
-* **Cohesion:** Steers the agent towards the average position (center of mass) of neighbors.
-* **Collision Avoidance:** Utilizes raycasting (`RaycastType`) to detect terrain. Upon detection, the steering vector is adjusted using the surface normal $\hat{n}$ of the hit point:
+| Force | Behaviour |
+|:---|:---|
+| Separation | Repulsive force inversely proportional to distance² within local radius $r$ |
+| Alignment | Steers toward the average heading of neighbours |
+| Cohesion | Steers toward the centre of mass of neighbours |
+| Avoidance | Raycast-based terrain detection; steering adjusted via surface normal $\hat{n}$ of the hit point |
 
-$$ \vec{V}_{\text{steer}} = \left( \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\text{agent}} \right)_{\text{normalized}} $$
+Collision avoidance computes the adjusted steering vector as:
 
-### 2. Audio Signal Processing (FFT)
-The `AudioData.cs` module utilizes the Fast Fourier Transform (FFT) to convert time-domain audio signals into frequency-domain data.
+$$\vec{V}_{\text{steer}} = \left( \vec{P}_{\text{hit}} + \hat{n} - \vec{P}_{\text{agent}} \right)_{\text{normalized}}$$
 
-* **Spectrum Analysis:** Uses a Blackman-Harris window to minimize spectral leakage.
-* **Buffer Smoothing:** To prevent visual jitter, a buffering system smooths amplitude spikes. The buffer falls off linearly when the current amplitude is lower than the buffered amplitude:
-    $$A_{buf}(t) = A_{buf}(t-1) - \Delta_{decay}$$
+### 2. Cyclic Cellular Automata (CCA)
 
-### 3. Discrete Math & Chaos Theory
-The project implements multiple forms of discrete grid simulations.
+<p align="center">
+  <img src="Recordings/Image%20Sequence_007_0000.jpg" alt="Cyclic Cellular Automata" width="80%">
+  <br>
+  <em>Cyclic Cellular Automata — Moore neighbourhood with adjustable state count.</em>
+</p>
 
-**Cyclic Cellular Automata (`CCA.cs`)**\
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_007_0000.jpg" alt="CCA" height="500">\
-A cyclic system where a cell with state $S$ is consumed by a neighbor with state $S+1$ modulo $N_{states}$.
-* **Algorithm:** Supports both Moore and Von Neumann neighborhoods with adjustable range and threshold parameters.
+A discrete grid simulation where a cell with state $S$ is consumed by a neighbour with state $S+1 \mod N_{states}$. Supports both Moore and Von Neumann neighbourhoods with configurable range and threshold parameters.
 
-**Edge of Chaos (`EOCCCA.cs`)**\
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_009_0000.jpg" alt="EOC" height="500">\
-Explores Langton’s Lambda ($\lambda$) parameter. The system generates a transition table based on a probability $\lambda$ to find the phase transition where complex structures emerge.
-* **Compute Indexing:** The 3D transition rule table is flattened for the GPU:
-    $$Index = a \times N^2 + b \times N + c$$
+### 3. Edge of Chaos (EOCCCA)
 
-**Physarum / Agent Trails (`AgentCCA.cs`)**\
-<img src="https://github.com/maybebool/Audioresponsive-Shaders/blob/main/Recordings/Image%20Sequence_006_0000.jpg" alt="Agents" height="500">\
-Based on Jeff Jones' algorithm for slime mold approximation.
-1.  **Sensory Stage:** Agents probe the grid at angles $\theta$, $-\theta$, and $0$.
-2.  **Motor Stage:** Agents rotate toward the highest chemical concentration (trail value).
-3.  **Diffusion & Decay:** A convolution kernel blurs the texture, and values are multiplied by a decay factor $\delta < 1.0$ every frame.
+<p align="center">
+  <img src="Recordings/Image%20Sequence_009_0000.jpg" alt="Edge of Chaos" width="80%">
+  <br>
+  <em>Edge of Chaos — Langton's Lambda parameter exploring phase transitions.</em>
+</p>
 
----
+Explores Langton's Lambda ($\lambda$) parameter to find phase transitions where complex structures emerge. The transition rule table is generated probabilistically and flattened for GPU dispatch:
 
-## Architecture & Optimization
+$$Index = a \times N^2 + b \times N + c$$
 
-### Compute Buffers & Indirect Drawing
-To bypass the CPU overhead of `GameObject` transforms, the system uses `ComputeBuffer` to pass raw struct data (`BoidConductValues`) between C# and HLSL.
-* **Struct Alignment:** C# structs are padded to align with HLSL memory rules (16-byte alignment).
-* **Indirect Instancing:** `NoiseGridInstance.cs` uses `DrawMeshInstancedIndirect` to render geometry directly from the GPU buffer, eliminating draw-call overhead.
+### 4. Physarum Agent Trails
 
-### Audio-Reactive Material System
-The `NoiseAudio.cs` and `BoidsCarrier.cs` scripts bridge the audio data and the rendering pipeline.
-* **Smoothness Mapping:** Maps audio amplitude to material smoothness: `Mathf.Lerp(min, max, amplitudeBuffer)`.
-* **Scale Modulation:** Modulates geometry scale based on specific frequency bands.
+<p align="center">
+  <img src="Recordings/Image%20Sequence_006_0000.jpg" alt="Physarum Simulation" width="80%">
+  <br>
+  <em>Physarum slime mold — agent-based trail simulation with diffusion and decay.</em>
+</p>
 
----
+Based on Jeff Jones' algorithm for slime mold approximation. The simulation runs in three stages:
 
-## Setup & Usage
+| Stage | Operation |
+|:---|:---|
+| **Sensory** | Agents probe the grid at angles $\theta$, $-\theta$, and $0$ |
+| **Motor** | Agents rotate toward the highest chemical concentration (trail value) |
+| **Diffusion & Decay** | Convolution kernel blurs the texture; values decay by factor $\delta < 1.0$ per frame |
 
-1.  **Audio:** Attach `AudioData` to a GameObject with an `AudioSource` and assign a clip.
-2.  **Flocking:** Add `BoidsCarrier` to the scene. Assign the `BoidPrefab` and link the Compute Shader.
-3.  **Simulation:** For CCA or Physarum, attach `CCA` or `AgentCCA` respectively, ensuring a compatible Material is assigned for output.
+## Audio Analysis Pipeline
 
----
+The `AudioData.cs` module converts time-domain audio signals into frequency-domain data via FFT (Blackman-Harris window to minimise spectral leakage). A buffering system smooths amplitude spikes to prevent visual jitter:
 
-### Dependencies
-* Unity 2021.3+ (URP/HDRP recommended for Compute Shaders)
-* C# 8.0+
+$$A_{buf}(t) = A_{buf}(t-1) - \Delta_{decay}$$
+
+Frequency bands are mapped to simulation parameters:
+
+| Mapping | Target |
+|:---|:---|
+| Amplitude → Material Smoothness | `Mathf.Lerp(min, max, amplitudeBuffer)` |
+| Frequency Bands → Geometry Scale | Per-band modulation of agent/cell size |
+
+## Architecture & Optimisation
+
+| Technique | Purpose |
+|:---|:---|
+| `ComputeBuffer` | Raw struct data transfer between C# and HLSL, bypassing `GameObject` overhead |
+| Struct Alignment | C# structs padded to 16-byte HLSL alignment rules |
+| `DrawMeshInstancedIndirect` | Geometry rendered directly from GPU buffer, eliminating per-instance draw calls |
+| Audio-Reactive Materials | Smoothness, scale, and colour driven by FFT frequency band data |
 
 
+## Getting Started
 
+```bash
+git clone https://github.com/maybebool/Audioresponsive-Shaders.git
+```
 
+1. Open the project in Unity 2021.3+ (URP or HDRP recommended for Compute Shader support).
+2. Attach `AudioData` to a GameObject with an `AudioSource` and assign an audio clip.
+3. For Flocking: add `BoidsCarrier` to the scene, assign the `BoidPrefab`, and link the Compute Shader.
+4. For CCA / Physarum: attach `CCA` or `AgentCCA` respectively and assign a compatible output material.
 
+**Prerequisites:** Unity 2021.3+, C# 8.0+, GPU with Compute Shader support.
 
+## Tech Stack
+
+[![Unity](https://img.shields.io/badge/Unity-000000?style=flat-square&logo=unity&logoColor=white)](https://unity.com/)
+[![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![HLSL](https://img.shields.io/badge/HLSL-5586A4?style=flat-square)](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl)
+
+| Category | Technology |
+|:---|:---|
+| Engine | Unity 2021.3+ (URP/HDRP) |
+| Language | C# 8.0+ |
+| GPU Compute | HLSL Compute Shaders — flocking, CCA, physarum kernels |
+| Audio | Unity `AudioSource` FFT with Blackman-Harris windowing |
+| Rendering | `Graphics.DrawMeshInstancedIndirect`, ComputeBuffer struct pipeline |
+
+## Limitations & Future Work
+
+The current system demonstrates audio-reactive emergent simulations on GPU. Possible extensions include:
+
+- 3D volumetric cellular automata (extending CCA from 2D grid to 3D voxel space)
+- Multi-species physarum with inter-species trail interaction
+- MIDI / OSC input as an alternative to microphone FFT for live performance control
+- Reaction-diffusion systems (Gray-Scott, Belousov-Zhabotinsky) as additional simulation modes
+- VR integration for immersive audio-visual experiences on Meta Quest
+- Temporal persistence with trail history visualisation across simulation frames
