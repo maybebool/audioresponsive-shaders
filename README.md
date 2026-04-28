@@ -1,13 +1,13 @@
 # Computational Visuals & Audio-Reactive Systems
 
 <p align="center">
-  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Boids" height="220">
+  <img src="Recordings/Image%20Sequence_002_0000.jpg" alt="Boids" height="420">
   &nbsp;
-  <img src="Recordings/Image%20Sequence_007_0000.jpg" alt="CCA" height="220">
+  <img src="Recordings/Image%20Sequence_007_0000.jpg" alt="CCA" height="420">
   &nbsp;
-  <img src="Recordings/Image%20Sequence_009_0000.jpg" alt="Edge of Chaos" height="220">
+  <img src="Recordings/Image%20Sequence_009_0000.jpg" alt="Edge of Chaos" height="420">
   &nbsp;
-  <img src="Recordings/Image%20Sequence_006_0000.jpg" alt="Physarum" height="220">
+  <img src="Recordings/Image%20Sequence_006_0000.jpg" alt="Physarum" height="420">
 </p>
 <p align="center">
   <em>Boids · Cyclic Cellular Automata · Edge of Chaos · Physarum</em>
